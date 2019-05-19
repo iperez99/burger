@@ -1,55 +1,67 @@
 <div class="container">
-    <div class="jumbotron">
-        <h1 class="display-4"><i class="fas fa-hamburger"></i> Devour a Burger!</h1>
+    <div class="jumbotron jumbotron-fluid">
         <div class="container">
+            <h1 class="display-4"><i class="fas fa-hamburger"></i> Devour a Burger!</h1>
+            <p class="lead">Create your favorite burger and devour it!</p>
+        </div>
+    </div>
 
-            <div class="row">
-                <h1 class="sub-header">Burgers</h1>
-            </div>
-            <div class="card col-md-6">
-                <h3 class="card-title sub-header" id="not-devoured">Available</h3>
-                <div class="card-body">
+    <form class="create-form mb-2">
+
+        <div class="form-group">
+            <label for="newBurger">
+                <h3> Add a burger: </h3>
+            </label>
+            <input type="text" id="newBurger" name="burger">
+            <button type="submit" id="addBurger" class="btn btn-success">Add</button>
+        </div>
+        &nbsp;
+
+    </form>
+
+    <div class="row">
+        <!-- Undevoured Burgers -->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading m-2">
+                    <h3>New Burgers</h3>
+                </div>
+                <div class="panel-body">
                     <ul>
-                        <li>
-                            {{#each burger}}
-                            {{#unless devoured}}
-                            <p>
-                                {{burger_name}}
-                            </p>
-                            <button type="button" class="devour" data-id="{{id}}">Devour</button>
-                            {{/unless}}
-                            {{/each}}
-
-
-                        </li>
+                        {{#each burgers}}
+                        {{#unless devoured}}
+                        <span><strong> {{this.id}} - {{this.burger_name}} </strong></span>
+                        <button type="button" class="eatburger btn btn-primary text-white" id="eatbutton"
+                            data-id="{{this.id}}" data-newDevoured="{{devour}}">Devour
+                        </button>
+                        <hr>
+                        {{/unless}}
+                        {{/each}}
                     </ul>
                 </div>
             </div>
-            <div class="card col-md-6 devoured">
-                <h3 class="card-title sub-header" id="devoured">Devoured</h3>
-                <div class="card-body">
+        </div>
+        <!-- Devoured Burgers -->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading m-2">
+                    <h3>Devoured Burgers</h3>
+                </div>
+                <div class="panel-body">
                     <ul>
-                        {{#each burger}}
+                        {{#each burgers}}
                         {{#if devoured}}
-                        <p>
-                            {{burger_name}}
-                        </p>
-                        <button type="submit">Make Another</button>
+                        <span><strong> {{this.id}} - {{this.burger_name}} </strong></span>
+                        <button type="button" class="trashburger btn btn-danger text-white" id="trashbutton"
+                            data-id="{{this.id}}" data-newDevoured="{{devour}}">Delete</button>
+                        <hr>
                         {{/if}}
                         {{/each}}
                     </ul>
                 </div>
             </div>
-
-        {{!-- Create a new burger --}}
-            <div class="sub-header">Add Your Own Burger Here!</div>
-            <form id="burgers">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="Add Your Burger!">
-                </div>
-                <button type="submit">submit</button>
-            </form>
         </div>
     </div>
+
 
 </div>
