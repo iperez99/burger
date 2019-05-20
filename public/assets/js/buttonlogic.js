@@ -1,57 +1,52 @@
-// Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
 
-    // Add a new burger.
+    //logic for creating a new burger
     $(".create-form").on("submit", function (event) {
+        //Prevent default refresh
         event.preventDefault();
 
         var newBurger = {
-            burger_name: $("#newBurger").val().trim(),
-            devoured: 0
+            name: $("#burgerName").val().trim(),
+            devoured: false
         };
 
-        // Send the POST request.
-        $.ajax("/api/burgers", {
+        //Send POST request
+        $.ajax("/api/burgers/", {
             type: "POST",
             data: newBurger
-        }).then(function () {
-            console.log("Added new burger");
-            // Reload the page to get the updated burger list.
-            location.reload();
-        });
+        }).then(
+            function () {
+                console.log("created new burger");
+                //Reload the page to get updated burger list
+                location.reload();
+            }
+        );
     });
 
-    $(".eatburger").on("click", function (event) {
-        event.preventDefault();
-
+    //logic for updating devoured state
+    $(".devour").on("click", function (event) {
+        //set id to equal the burger id associated w/ this button
         var id = $(this).data("id");
-        var devouredState = {
-            devoured: 1
+        console.log("devour id: ", id);
+        //set newDevour variable to be this newdevour
+        var newDevour = $(this).data("newDevour");
+
+
+        //set newDevour state to equal newDevour
+        var newDevourState = {
+            devoured: true
         };
 
-        // Send the PUT request.
+        //Send the PUT update request
         $.ajax("/api/burgers/" + id, {
             type: "PUT",
-            data: devouredState
-        }).then(function () {
-            console.log("Burger devoured");
-            location.reload();
-        });
+            data: newDevourState
+        }).then(
+            function () {
+                console.log("changed devour to ", newDevour);
+                //Reload the page to get new updated list
+                location.reload();
+            }
+        );
     });
-
-    $("#trashbutton").on("click", function (event) {
-        // event.preventDefault();
-
-        var id = $(this).data("id");
-
-        // Send the DELETE request.
-        $.ajax("/api/burgers/" + id, {
-            type: "DELETE",
-            data: id
-        }).then(function () {
-            console.log("Devoured Burger deleted!")
-            location.reload()
-        });
-    });
-
 })
