@@ -3,7 +3,6 @@
         <div class="container">
             <h1 class="display-4"><i class="fas fa-hamburger"></i> Devour a Burger!</h1>
             <p class="lead">Create your favorite burger and devour it!</p>
-            <img src="../public/assets/img/burger.gif" alt="burger" class="href">
         </div>
     </div>
 
@@ -11,7 +10,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2>Burgers ready to eat</h2>
-                <ul style="list-style-type:none;">
+                <ul>
                     {{#each burgers}}
                     {{#unless this.devoured}}
                     <li>
